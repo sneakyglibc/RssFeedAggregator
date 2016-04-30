@@ -17,6 +17,10 @@ import java.util.Set;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -38,7 +42,11 @@ public class Handlers {
 			String query = br.readLine();
 			String res;
 			
-			parseQuery(query, params);
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -59,7 +67,7 @@ public class Handlers {
 						.append("password", params.get("password"))
 			            .append("flux", asList())
 						.append("items", asList()));
-				res = "OK";
+				res = "{\"res\":\"OK\"}";
 				he.sendResponseHeaders(200, res.length());
 			}
 			OutputStream os = he.getResponseBody();
@@ -82,8 +90,12 @@ public class Handlers {
 			BufferedReader br = new BufferedReader(isr);
 			String query = br.readLine();
 			String res;
-			
-			parseQuery(query, params);
+
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Params not found.";
 				he.sendResponseHeaders(400, res.length());
@@ -100,13 +112,12 @@ public class Handlers {
 			}
 			else{
 				Document doc = it.iterator().next();
-				System.out.println(doc);
 				if (!Objects.equals(doc.get("password"), params.get("password"))) {
 					res = "Wrong password.";
 					he.sendResponseHeaders(400, res.length());
 				}
 				else {
-					res = "OK";
+					res = "{\"res\":\"OK\"}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
@@ -131,7 +142,11 @@ public class Handlers {
 			String query = br.readLine();
 			String res;
 			
-			parseQuery(query, params);
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link") || !params.containsKey("title")) {
 				res = "Wrong params.";
@@ -160,7 +175,7 @@ public class Handlers {
 					db.getCollection("users").updateOne(
 					        new Document("email", params.get("email")),
 					        new Document("$push", flux));
-					res = "OK";
+					res = "{\"res\":\"OK\"}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
@@ -185,7 +200,11 @@ public class Handlers {
 			String query = br.readLine();
 			String res;
 			
-			parseQuery(query, params);
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -237,7 +256,11 @@ public class Handlers {
 			String query = br.readLine();
 			String res;
 			
-			parseQuery(query, params);
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link")) {
 				res = "Wrong params.";
@@ -265,7 +288,7 @@ public class Handlers {
 					db.getCollection("users").updateOne(
 					        new Document("email", params.get("email")),
 					        new Document("$pull", flux));
-					res = "OK";
+					res = "{\"res\":\"OK\"}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
@@ -290,7 +313,11 @@ public class Handlers {
 			String query = br.readLine();
 			String res;
 			
-			parseQuery(query, params);
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link") || !params.containsKey("title")) {
 				res = "Wrong params.";
@@ -319,7 +346,7 @@ public class Handlers {
 					db.getCollection("users").updateOne(
 					        new Document("email", params.get("email")),
 					        new Document("$push", item));
-					res = "OK";
+					res = "{\"res\":\"OK\"}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
@@ -344,7 +371,11 @@ public class Handlers {
 			String query = br.readLine();
 			String res;
 			
-			parseQuery(query, params);
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -396,7 +427,11 @@ public class Handlers {
 			String query = br.readLine();
 			String res;
 			
-			parseQuery(query, params);
+			try {
+				params = (JSONObject)new JSONParser().parse(query);
+			} catch (ParseException e) {
+				parseQuery(query, params);
+			}
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link")) {
 				res = "Wrong params.";
@@ -424,7 +459,7 @@ public class Handlers {
 					db.getCollection("users").updateOne(
 					        new Document("email", params.get("email")),
 					        new Document("$pull", item));
-					res = "OK";
+					res = "{\"res\":\"OK\"}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
