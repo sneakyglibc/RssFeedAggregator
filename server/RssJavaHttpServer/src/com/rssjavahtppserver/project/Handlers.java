@@ -59,7 +59,7 @@ public class Handlers {
 						.append("password", params.get("password"))
 			            .append("flux", asList())
 						.append("items", asList()));
-				res = "{email:'" + params.get("email") + "', password:'" + params.get("password") + "'}";
+				res = "OK";
 				he.sendResponseHeaders(200, res.length());
 			}
 			OutputStream os = he.getResponseBody();
@@ -133,7 +133,7 @@ public class Handlers {
 			
 			parseQuery(query, params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
-					|| !params.containsKey("flux")) {
+					|| !params.containsKey("link") || !params.containsKey("title")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
 				OutputStream os = he.getResponseBody();
@@ -239,7 +239,7 @@ public class Handlers {
 			
 			parseQuery(query, params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
-					|| !params.containsKey("flux")) {
+					|| !params.containsKey("link")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
 				OutputStream os = he.getResponseBody();
@@ -292,7 +292,7 @@ public class Handlers {
 			
 			parseQuery(query, params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
-					|| !params.containsKey("items")) {
+					|| !params.containsKey("link") || !params.containsKey("title")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
 				OutputStream os = he.getResponseBody();
@@ -398,7 +398,7 @@ public class Handlers {
 			
 			parseQuery(query, params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
-					|| !params.containsKey("items")) {
+					|| !params.containsKey("link")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
 				OutputStream os = he.getResponseBody();
