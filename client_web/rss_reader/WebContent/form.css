@@ -1,0 +1,94 @@
+/* Général ------------------------------------------------------------------------------------- */
+body, p, legend, label, input {
+	font: normal 12pt arial, helvetica, sans-serif;
+}
+
+body {
+	margin: 0;
+	background: red; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(left top, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(to bottom right, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* Standard syntax */
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.element {
+	margin-top: 35vh; /* poussé de la moitié de hauteur de viewport */
+	transform: translateY(-50%);
+	/* tiré de la moitié de sa propre hauteur */
+	width: 480px;
+	height: 150px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.notconnected {
+	border-radius: 25px;
+	border: 10px solid #0568CD;
+	padding: 20px;
+	margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
+	transform: translateY(-50%);
+	/* tiré de la moitié de sa propre hauteur */
+	width: 450px;
+	height: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 42px;
+}
+
+fieldset {
+	border-radius: 25px;
+	border: 20px solid #0568CD;
+	padding: 20px;
+}
+
+legend {
+	font-size: 42px;
+	font-weight: bold;
+	color: #0568CD;
+	font-weight: bold;
+}
+
+/* Forms --------------------------------------------------------------------------------------- */
+form label {
+	float: left;
+	width: 200px;
+	margin: 3px 0px 0px 0px;
+	font-weight: bold;
+	color: #2d2d2d;
+}
+
+form input {
+	margin: 3px 3px 0px 0px;
+	border: 4px #999 solid;
+	border-radius: 15px;
+	padding: 6px;
+}
+
+form input.sansLabel {
+	margin-left: 200px;
+}
+
+form .requis {
+	color: #790000;
+}
+
+form .erreur {
+	color: #8c0000;
+	font-weight: bold;
+}
+
+form .succes {
+	color: #004f0c;
+	font-weight: bold;
+}

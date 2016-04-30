@@ -1,0 +1,113 @@
+/* Général ------------------------------------------------------------------------------------- */
+body, p, legend, label, input {
+	font: normal 12pt arial, helvetica, sans-serif;
+}
+
+body {
+	margin: 0;
+	background: red; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(left top, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(to bottom right, rgba(183, 222, 237, 1) 0%,
+		rgba(33, 180, 226, 1) 51%, rgba(183, 222, 237, 1) 100%);
+	/* Standard syntax */
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#tables {
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+}
+
+#table_flux {
+	width: 400px;
+	margin: 10px;
+	padding: 10px;
+	border: 5px solid #0568CD;
+	border-radius: 5px;
+	float: left;
+	margin-left: auto;
+	margin-right: auto;
+	margin: 10px;
+}
+
+th {
+	font-size: 30px;
+	color: #0568CD;
+	text-align: left;
+}
+
+._items {
+	font-size: 18px;
+}
+
+._flux {
+	font-size: 20px;
+}
+
+#table_items {
+	width: auto;
+	margin: 10px;
+	padding: 10px;
+	border: 5px solid #0568CD;
+	border-radius: 5px;
+	float: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.adress {
+	margin: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #0568CD;
+	font-weight: bold;
+}
+
+.right {
+	width: 180px;
+	float: right;
+	text-align: right;
+	font-size: 30px;
+}
+
+.left {
+	/* the next props are meant to keep this block independent from the other floated one */
+	width: auto;
+	overflow: hidden;
+}
+
+.field {
+	width: 580px;
+	border-radius: 20px;
+	border: 2px solid #0568CD;
+	padding: 10px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+legend {
+	font-size: 22px;
+	font-weight: bold;
+	color: #0568CD;
+	font-weight: bold;
+	text-align: center;
+}
+
+/* Forms --------------------------------------------------------------------------------------- */
+form input {
+	margin: 3px 3px 0px 0px;
+	border: 4px #999 solid;
+	border-radius: 25px;
+	padding: 6px;
+}

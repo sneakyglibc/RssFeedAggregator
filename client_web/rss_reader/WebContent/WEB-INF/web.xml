@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+    <jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
+
+	<servlet>
+		<servlet-name>Signup</servlet-name>
+		<servlet-class>com.rss_reader.servlets.Signup</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Signup</servlet-name>
+		<url-pattern>/signup</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.rss_reader.servlets.Login</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Disconnection</servlet-name>
+		<servlet-class>com.rss_reader.servlets.Disconnection</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Disconnection</servlet-name>
+		<url-pattern>/disconnection</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Home</servlet-name>
+		<servlet-class>com.rss_reader.servlets.Home</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddFlux</servlet-name>
+		<servlet-class>com.rss_reader.servlets.AddFlux</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddFlux</servlet-name>
+		<url-pattern>/addFlux</url-pattern>
+	</servlet-mapping>
+
+</web-app>
