@@ -14,7 +14,7 @@ public class JavaHttpServer {
 	public void Start(int port) {
 		try {
 			mongoClient = new MongoClient();
-			MongoDatabase db = mongoClient.getDatabase("test");
+			MongoDatabase db = mongoClient.getDatabase("rssjava");
 
 			server = HttpServer.create(new InetSocketAddress(port), 0);
 			System.out.println("server started at " + port);

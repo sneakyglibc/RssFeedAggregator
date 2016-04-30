@@ -39,6 +39,14 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password")) {
+				res = "Wrong params.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}	
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (it.iterator().hasNext()) {
@@ -49,13 +57,11 @@ public class Handlers {
 				db.getCollection("users").insertOne(new Document()
 						.append("email", params.get("email"))
 						.append("password", params.get("password"))
-			            .append("token", "token")
 			            .append("flux", asList())
 						.append("items", asList()));
-				res = "{token:'token'}";
+				res = "{email:'" + params.get("email") + "', password:'" + params.get("password") + "'}";
 				he.sendResponseHeaders(200, res.length());
 			}
-			System.out.println(res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -78,6 +84,14 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password")) {
+				res = "Params not found.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -92,10 +106,7 @@ public class Handlers {
 					he.sendResponseHeaders(400, res.length());
 				}
 				else {
-					db.getCollection("users").updateOne(
-					        new Document("email", params.get("email")),
-					        new Document("$set", new Document("token", "token")));
-					res = "{token:'token'}";
+					res = "OK";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
@@ -121,6 +132,15 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password") 
+					|| !params.containsKey("flux")) {
+				res = "Wrong params.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -166,6 +186,14 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password")) {
+				res = "Wrong params.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -210,6 +238,15 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password") 
+					|| !params.containsKey("flux")) {
+				res = "Wrong params.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -254,6 +291,15 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password") 
+					|| !params.containsKey("items")) {
+				res = "Wrong params.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -299,6 +345,14 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password")) {
+				res = "Wrong params.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -343,6 +397,15 @@ public class Handlers {
 			String res;
 			
 			parseQuery(query, params);
+			if (!params.containsKey("email") || !params.containsKey("password") 
+					|| !params.containsKey("items")) {
+				res = "Wrong params.";
+				he.sendResponseHeaders(400, res.length());
+				OutputStream os = he.getResponseBody();
+				os.write(res.getBytes());
+				os.close();
+				return;
+			}
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
