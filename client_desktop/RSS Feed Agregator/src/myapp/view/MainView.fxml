@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.view.MainViewCtrl">
+   <children>
+      <SplitPane dividerPositions="0.3997995991983968" layoutX="-6.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <ListView fx:id="feedList" prefHeight="200.0" prefWidth="200.0" />
+            <SplitPane dividerPositions="0.5">
+              <items>
+                  <ListView fx:id="itemList" prefHeight="200.0" prefWidth="200.0" />
+                  <WebView fx:id="webView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" />
+              </items>
+            </SplitPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
