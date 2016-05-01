@@ -10,8 +10,6 @@ import myapp.MainApp;
 import myapp.model.Channel;
 import myapp.model.Item;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-
 public class MainViewCtrl {
     
     @FXML
@@ -45,6 +43,8 @@ public class MainViewCtrl {
     					super.updateItem(f, b);
     					if (f != null)
     						setText(f.getName());
+        				else
+        					setText("");
     				}
     			};
     			return cell;

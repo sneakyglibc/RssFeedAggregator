@@ -51,8 +51,11 @@ public class MenuBarCtrl {
             
             // Show the dialog and wait until the user closes it
             subStage.showAndWait();
-            if (ctrl.getError() == false)
-            	this.mainApp.addChannel(new Channel(ctrl.getName(), ctrl.getLink()));
+            if (ctrl.getError() == false) {
+            	Channel c = new Channel(ctrl.getName(), ctrl.getLink());
+            	c.loadName();
+            	this.mainApp.addChannel(c);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,7 +72,7 @@ public class MenuBarCtrl {
     			HttpResponse response;
     			response = mainApp.getClient().execute(request);
     			if (response.getStatusLine().getStatusCode() == 200) {
-    				mainApp.removeChannel(f);
+    				mainApp.getMainViewCtrl().removeFeed(f);
     			}
     		    else {
     		   		Alert alert = new Alert(AlertType.ERROR);
@@ -104,8 +107,13 @@ public class MenuBarCtrl {
     @FXML
     public void addItem() {
     	Channel c = mainApp.getMainViewCtrl().getSelectedFeed();
-    	if (c.isSavedEntries() == true)
+    	if (c.isSavedEntries() == true) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error Dialog");
+    		alert.setHeaderText("Article already saved");
+    		alert.showAndWait();
     		return;
+    	}
     	Item i = mainApp.getMainViewCtrl().getSelectedItem();
     	if (i != null) {
         	try {
@@ -141,7 +149,7 @@ public class MenuBarCtrl {
     	else {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Error Dialog");
-    		alert.setHeaderText("No Feed selected");
+    		alert.setHeaderText("No Article selected");
     		alert.showAndWait();
     	}
     }
@@ -149,8 +157,13 @@ public class MenuBarCtrl {
     @FXML
     public void removeItem() {
     	Channel c = mainApp.getMainViewCtrl().getSelectedFeed();
-    	if (c.isSavedEntries() == false)
+    	if (c.isSavedEntries() == false) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error Dialog");
+    		alert.setHeaderText("Can't remove this Article");
+    		alert.showAndWait();
     		return;
+    	}
     	Item i = mainApp.getMainViewCtrl().getSelectedItem();
     	if (i != null) {
         	try {
@@ -186,7 +199,7 @@ public class MenuBarCtrl {
     	else {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Error Dialog");
-    		alert.setHeaderText("No Feed selected");
+    		alert.setHeaderText("No Article selected");
     		alert.showAndWait();
     	}
     }

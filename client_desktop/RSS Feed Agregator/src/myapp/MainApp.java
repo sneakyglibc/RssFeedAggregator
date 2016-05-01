@@ -170,7 +170,6 @@ public class MainApp extends Application {
 				for (int i = 0; i < arr.length(); i++) {
 					Channel c = new Channel(arr.getJSONObject(i).getString("title"), arr.getJSONObject(i).getString("link"));
 					channels.add(c);
-//					c.loadName();
 				}
 			}
 			else {

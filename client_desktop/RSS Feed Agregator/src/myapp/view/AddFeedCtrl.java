@@ -10,6 +10,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.SyndFeedInput;
+import com.rometools.rome.io.XmlReader;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -38,9 +44,16 @@ public class AddFeedCtrl {
     @FXML
     private void handleAdd() {
     	try {
-    		URL test = new URL(linkField.getText());
+    		URL feedUrl = new URL(linkField.getText());
 	    	HttpPost request = new HttpPost(mainApp.getUrl() + "addFlux");
-			request.setEntity(new StringEntity("{" + mainApp.getUserBody() + "\"link\":\"" + linkField.getText() + "\",\"title\":\"" + nameField.getText() + "\"}"));
+    		if (nameField.getText().length() == 0) {
+    			SyndFeedInput input = new SyndFeedInput();
+    			SyndFeed feed = input.build(new XmlReader(feedUrl));
+    			String name = new String(feed.getTitleEx().getValue());
+    			request.setEntity(new StringEntity("{" + mainApp.getUserBody() + "\"link\":\"" + linkField.getText() + "\",\"title\":\"" + name + "\"}"));
+    		}
+    		else
+    			request.setEntity(new StringEntity("{" + mainApp.getUserBody() + "\"link\":\"" + linkField.getText() + "\",\"title\":\"" + nameField.getText() + "\"}"));
 			HttpResponse response;
 			response = mainApp.getClient().execute(request);
 			if (response.getStatusLine().getStatusCode() == 200) {
@@ -78,6 +91,12 @@ public class AddFeedCtrl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			isError = true;
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FeedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
         this.dialogStage.close();
     }
