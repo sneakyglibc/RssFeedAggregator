@@ -5,15 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
@@ -21,7 +18,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import static java.util.Arrays.asList;
@@ -47,6 +43,7 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println(params);
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -96,6 +93,7 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println(params);
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Params not found.";
 				he.sendResponseHeaders(400, res.length());
@@ -169,14 +167,22 @@ public class Handlers {
 					he.sendResponseHeaders(400, res.length());
 				}
 				else {
-					Document flux = new Document("flux", new Document()
-							.append("link", params.get("link"))
-							.append("title", params.get("title")));
-					db.getCollection("users").updateOne(
-					        new Document("email", params.get("email")),
-					        new Document("$push", flux));
-					res = "{\"res\":\"OK\"}";
-					he.sendResponseHeaders(200, res.length());
+					it = db.getCollection("flux").find(
+					        new Document("link", params.get("link")));
+					if (it.iterator().hasNext()) {
+						res = "Flux already exists.";
+						he.sendResponseHeaders(400, res.length());
+					}
+					else {
+						Document flux = new Document("flux", new Document()
+								.append("link", params.get("link"))
+								.append("title", params.get("title")));
+						db.getCollection("users").updateOne(
+						        new Document("email", params.get("email")),
+						        new Document("$push", flux));
+						res = "{\"res\":\"OK\"}";
+						he.sendResponseHeaders(200, res.length());
+					}
 				}
 			}
 			OutputStream os = he.getResponseBody();
@@ -205,6 +211,7 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println(params);
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -213,6 +220,7 @@ public class Handlers {
 				os.close();
 				return;
 			}
+			System.out.println(params);
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -231,10 +239,11 @@ public class Handlers {
 					for (int i = 0; i < list.size(); i++) {
 						flux.add(list.get(i).toJson());
 					}
-					res = flux.toString();
+					res = "{\"list\":" + flux.toString() + "}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
+			System.out.println(res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -340,14 +349,22 @@ public class Handlers {
 					he.sendResponseHeaders(400, res.length());
 				}
 				else {
-					Document item = new Document("items", new Document()
-							.append("link", params.get("link"))
-							.append("title", params.get("title")));
-					db.getCollection("users").updateOne(
-					        new Document("email", params.get("email")),
-					        new Document("$push", item));
-					res = "{\"res\":\"OK\"}";
-					he.sendResponseHeaders(200, res.length());
+					it = db.getCollection("items").find(
+					        new Document("link", params.get("link")));
+					if (it.iterator().hasNext()) {
+						res = "Flux already exists.";
+						he.sendResponseHeaders(400, res.length());
+					}
+					else {
+						Document item = new Document("items", new Document()
+								.append("link", params.get("link"))
+								.append("title", params.get("title")));
+						db.getCollection("users").updateOne(
+						        new Document("email", params.get("email")),
+						        new Document("$push", item));
+						res = "{\"res\":\"OK\"}";
+						he.sendResponseHeaders(200, res.length());
+					}
 				}
 			}
 			OutputStream os = he.getResponseBody();
@@ -398,11 +415,11 @@ public class Handlers {
 				}
 				else {
 					List<Document> list = (List<Document>) doc.get("items");
-					ArrayList<String> flux = new ArrayList<String>();
+					ArrayList<String> items = new ArrayList<String>();
 					for (int i = 0; i < list.size(); i++) {
-						flux.add(list.get(i).toJson());
+						items.add(list.get(i).toJson());
 					}
-					res = flux.toString();
+					res = "{\"list\":" + items.toString() + "}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
