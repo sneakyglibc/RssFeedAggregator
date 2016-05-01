@@ -23,5 +23,6 @@
 	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/rome-utils-1.6.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/slf4j-api-1.7.21.jar"/>
 	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/json-20160212.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

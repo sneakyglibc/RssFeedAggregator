@@ -8,6 +8,7 @@ import javafx.scene.web.WebView;
 import javafx.util.Callback;
 import myapp.MainApp;
 import myapp.model.Channel;
+import myapp.model.Item;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 
@@ -16,7 +17,7 @@ public class MainViewCtrl {
     @FXML
     private ListView<Channel> feedList;
     @FXML
-    private ListView<SyndEntry> itemList;
+    private ListView<Item> itemList;
     @FXML
     private WebView webView;
     
@@ -50,19 +51,21 @@ public class MainViewCtrl {
     		}
     	});
     }
-
+    
     private void setItemList(Channel channel) {
+    	if (channel.isLoaded() == false)
+    		channel.load();
     	try {
             this.itemList.setItems(channel.getEntries());
-            this.itemList.setCellFactory(new Callback<ListView<SyndEntry>, ListCell<SyndEntry>>() {
+            this.itemList.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>() {
             	@Override
-            	public ListCell<SyndEntry> call(ListView<SyndEntry> p) {
-            		ListCell<SyndEntry> cell = new ListCell<SyndEntry>() {
+            	public ListCell<Item> call(ListView<Item> p) {
+            		ListCell<Item> cell = new ListCell<Item>() {
             			@Override
-            			protected void updateItem(SyndEntry i, boolean b) {
+            			protected void updateItem(Item i, boolean b) {
             				super.updateItem(i, b);
             				if (i != null)
-            					setText(i.getTitle());
+            					setText(i.getName());
             				else
             					setText("");
             			}
@@ -77,22 +80,30 @@ public class MainViewCtrl {
         }
     }
     
-    private void loadItem(SyndEntry newValue) {
+    private void loadItem(Item newValue) {
     	if (newValue != null)
     	{
     		String content = "";
     		
-    		System.out.println(newValue);
-    		content += "<h3><a href=" + newValue.getLink() + ">" + newValue.getTitle() + "</a></h3>";
-    		content += "<p>" + newValue.getPublishedDate() + ", ";
-    		content += newValue.getAuthor() + "</p>";
-    		content += "<p>" + newValue.getDescription().getValue() + "</p>";
-    		this.webView.getEngine().loadContent(content);
+    		if (newValue.isLinkOnly()) {
+    			this.webView.getEngine().load(newValue.getLink());
+    		}
+    		else {
+	    		content += "<h3><a href=" + newValue.getLink() + ">" + newValue.getName() + "</a></h3>";
+	    		content += "<p>" + newValue.getDate() + ", ";
+	    		content += newValue.getAuthor() + "</p>";
+	    		content += "<p>" + newValue.getDescription() + "</p>";
+	    		this.webView.getEngine().loadContent(content);
+    		}
     	}
     }
     
     public Channel getSelectedFeed() {
     	return this.feedList.getSelectionModel().getSelectedItem();
+    }
+    
+    public Item getSelectedItem() {
+    	return this.itemList.getSelectionModel().getSelectedItem();
     }
     
     public void removeFeed(Channel c) {

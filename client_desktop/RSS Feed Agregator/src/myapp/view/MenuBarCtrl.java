@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import myapp.MainApp;
 import myapp.model.Channel;
+import myapp.model.Item;
 
 public class MenuBarCtrl {
 	private MainApp mainApp;
@@ -61,7 +62,7 @@ public class MenuBarCtrl {
     @FXML
     public void removeFeed() {
     	Channel f = mainApp.getMainViewCtrl().getSelectedFeed();
-    	if (f != null) {
+    	if (f != null && f.isSavedEntries() == false) {
         	try {
     	    	HttpPost request = new HttpPost(mainApp.getUrl() + "remFlux");
     			request.setEntity(new StringEntity("{" + mainApp.getUserBody() + "\"link\":\"" + f.getLink() + "\"}"));
@@ -69,8 +70,6 @@ public class MenuBarCtrl {
     			response = mainApp.getClient().execute(request);
     			if (response.getStatusLine().getStatusCode() == 200) {
     				mainApp.removeChannel(f);
-    				mainApp.getMainViewCtrl().clearItemList();
-    				mainApp.getMainViewCtrl().removeFeed(f);
     			}
     		    else {
     		   		Alert alert = new Alert(AlertType.ERROR);
@@ -104,12 +103,92 @@ public class MenuBarCtrl {
     
     @FXML
     public void addItem() {
-    	
+    	Channel c = mainApp.getMainViewCtrl().getSelectedFeed();
+    	if (c.isSavedEntries() == true)
+    		return;
+    	Item i = mainApp.getMainViewCtrl().getSelectedItem();
+    	if (i != null) {
+        	try {
+    	    	HttpPost request = new HttpPost(mainApp.getUrl() + "addItem");
+    			request.setEntity(new StringEntity("{" + mainApp.getUserBody() + "\"link\":\"" + i.getLink() + "\",\"title\":\"" + i.getName() + "\"}"));
+    			HttpResponse response;
+    			response = mainApp.getClient().execute(request);
+    			if (response.getStatusLine().getStatusCode() == 200) {
+    				mainApp.addItem(i);
+    			}
+    		    else {
+    		   		Alert alert = new Alert(AlertType.ERROR);
+    		   		alert.setTitle("Error Dialog");
+    		   		alert.setHeaderText("Probleme adding item to server");
+    		   		alert.showAndWait();
+    		   	}
+    			request.releaseConnection();
+    		} catch (UnsupportedEncodingException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (ClientProtocolException e) {
+    	   		Alert alert = new Alert(AlertType.ERROR);
+        		alert.setTitle("Error Dialog");
+        		alert.setHeaderText("Can't connect to server");
+        		alert.showAndWait();
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    	else {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error Dialog");
+    		alert.setHeaderText("No Feed selected");
+    		alert.showAndWait();
+    	}
     }
     
     @FXML
     public void removeItem() {
-    	
+    	Channel c = mainApp.getMainViewCtrl().getSelectedFeed();
+    	if (c.isSavedEntries() == false)
+    		return;
+    	Item i = mainApp.getMainViewCtrl().getSelectedItem();
+    	if (i != null) {
+        	try {
+    	    	HttpPost request = new HttpPost(mainApp.getUrl() + "remItem");
+    			request.setEntity(new StringEntity("{" + mainApp.getUserBody() + "\"link\":\"" + i.getLink() + "\"}"));
+    			HttpResponse response;
+    			response = mainApp.getClient().execute(request);
+    			if (response.getStatusLine().getStatusCode() == 200) {
+    				mainApp.removeItem(i);
+    			}
+    		    else {
+    		   		Alert alert = new Alert(AlertType.ERROR);
+    		   		alert.setTitle("Error Dialog");
+    		   		alert.setHeaderText("Probleme removing item from server");
+    		   		alert.showAndWait();
+    		   	}
+    			request.releaseConnection();
+    		} catch (UnsupportedEncodingException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (ClientProtocolException e) {
+    	   		Alert alert = new Alert(AlertType.ERROR);
+        		alert.setTitle("Error Dialog");
+        		alert.setHeaderText("Can't connect to server");
+        		alert.showAndWait();
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    	else {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error Dialog");
+    		alert.setHeaderText("No Feed selected");
+    		alert.showAndWait();
+    	}
     }
     
     @FXML

@@ -1,6 +1,8 @@
 package myapp;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
@@ -9,6 +11,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -22,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import myapp.model.Channel;
+import myapp.model.Item;
 import myapp.model.User;
 import myapp.view.ConnectDialogCtrl;
 import myapp.view.MainViewCtrl;
@@ -35,18 +40,13 @@ public class MainApp extends Application {
     private String url;
     private MainViewCtrl mainViewCtrl;
     private User user;
+    private Channel savedItems;
 
     private ObservableList<Channel> channels = FXCollections.observableArrayList();
 
     public MainApp() {
-    	/*
-        channels.add(new Channel("Google", "http://news.google.fr/news?cf=all&hl=fr&pz=1&ned=fr&output=rss"));
-        channels.add(new Channel("Yahoo", "https://fr.news.yahoo.com/rss/technologies"));
-        channels.add(new Channel("Youporn", "http://www.youporn.com/rss/"));
-        
-        for (int i = 0; i != 3; ++i)
-        	channels.get(i).load();
-        	*/
+    	savedItems = new Channel("Saved Articles", "");
+    	savedItems.setAsSavedEntries(true);
     	client = HttpClientBuilder.create().build();
     	url = new String("http://127.0.0.1:3000/");
     }
@@ -60,6 +60,8 @@ public class MainApp extends Application {
         {
         	this.primaryStage.setTitle("RSS Feed Agregator");
         	initRootLayout();
+        	getUserSavedItems();
+        	getUserFeeds();
         	showMainView();
         }
         else
@@ -91,8 +93,62 @@ public class MainApp extends Application {
     	this.channels.add(chan);
     }
     
+    public void addItem(Item i) {
+    	this.savedItems.addItem(i);
+    }
+    
     public void removeChannel(Channel chan) {
     	this.channels.remove(chan);
+    }
+    
+    public void removeItem(Item i) {
+    	this.savedItems.deleteItem(i);
+    }
+    
+    private void getUserSavedItems() {
+    	try {
+	    	HttpPost request = new HttpPost(getUrl() + "getListItem");
+			request.setEntity(new StringEntity("{" + getUserBody() + "}"));
+			HttpResponse response;
+			response = getClient().execute(request);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+				StringBuffer result = new StringBuffer();
+				String line = "";
+				while ((line = rd.readLine()) != null) {
+				    result.append(line);
+				}
+				JSONObject obj = new JSONObject(result.toString());
+				JSONArray arr = obj.getJSONArray("data");
+				for (int i = 0; i < arr.length(); i++) {
+					Item item = new Item(arr.getJSONObject(i).getString("title"), arr.getJSONObject(i).getString("link"), null, null, null);
+					item.setAsLinkOnly(true);
+					this.savedItems.addItem(item);
+				}
+				channels.add(savedItems);
+			}
+			else {
+		   		Alert alert = new Alert(AlertType.ERROR);
+		   		alert.setTitle("Error Dialog");
+		   		alert.setHeaderText("Probleme while getting saved items from server");
+		   		alert.showAndWait();
+			}
+			request.releaseConnection();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+	   		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error Dialog");
+    		alert.setHeaderText("Can't connect to server");
+    		alert.showAndWait();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     private void getUserFeeds() {
@@ -101,7 +157,28 @@ public class MainApp extends Application {
 			request.setEntity(new StringEntity("{" + getUserBody() + "}"));
 			HttpResponse response;
 			response = getClient().execute(request);
-			
+			if (response.getStatusLine().getStatusCode() == 200) {
+				BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+				StringBuffer result = new StringBuffer();
+				String line = "";
+				while ((line = rd.readLine()) != null) {
+				    result.append(line);
+				}
+				JSONObject obj = new JSONObject(result.toString());
+				JSONArray arr = obj.getJSONArray("data");
+				for (int i = 0; i < arr.length(); i++) {
+					Channel c = new Channel(arr.getJSONObject(i).getString("title"), arr.getJSONObject(i).getString("link"));
+					channels.add(c);
+//					c.loadName();
+				}
+			}
+			else {
+		   		Alert alert = new Alert(AlertType.ERROR);
+		   		alert.setTitle("Error Dialog");
+		   		alert.setHeaderText("Probleme while getting feed list from server");
+		   		alert.showAndWait();
+			}
 			request.releaseConnection();
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
