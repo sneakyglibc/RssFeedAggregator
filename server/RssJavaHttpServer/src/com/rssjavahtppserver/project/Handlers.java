@@ -239,7 +239,7 @@ public class Handlers {
 					for (int i = 0; i < list.size(); i++) {
 						flux.add(list.get(i).toJson());
 					}
-					res = "{\"list\":" + flux.toString() + "}";
+					res = "{\"data\":" + flux.toString() + "}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
@@ -419,7 +419,7 @@ public class Handlers {
 					for (int i = 0; i < list.size(); i++) {
 						items.add(list.get(i).toJson());
 					}
-					res = "{\"list\":" + items.toString() + "}";
+					res = "{\"data\":" + items.toString() + "}";
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
