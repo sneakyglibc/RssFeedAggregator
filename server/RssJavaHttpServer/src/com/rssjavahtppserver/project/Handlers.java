@@ -43,7 +43,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
-			System.out.println(params);
+			System.out.println("Http request: signup");
+			System.out.println("params: " + params);
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -67,6 +68,7 @@ public class Handlers {
 				res = "{\"res\":\"OK\"}";
 				he.sendResponseHeaders(200, res.length());
 			}
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -93,7 +95,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
-			System.out.println(params);
+			System.out.println("Http request: login");
+			System.out.println("params: " + params);
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Params not found.";
 				he.sendResponseHeaders(400, res.length());
@@ -119,6 +122,7 @@ public class Handlers {
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -145,6 +149,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println("Http request: addFlux");
+			System.out.println("params: " + params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link") || !params.containsKey("title")) {
 				res = "Wrong params.";
@@ -185,6 +191,7 @@ public class Handlers {
 					}
 				}
 			}
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -211,7 +218,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
-			System.out.println(params);
+			System.out.println("Http request: getListFlux");
+			System.out.println("params: "+ params);
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -220,7 +228,6 @@ public class Handlers {
 				os.close();
 				return;
 			}
-			System.out.println(params);
 			FindIterable<Document> it = db.getCollection("users").find(
 			        new Document("email", params.get("email")));
 			if (!it.iterator().hasNext()) {
@@ -243,7 +250,7 @@ public class Handlers {
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
-			System.out.println(res);
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -270,6 +277,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println("Http request: remFlux");
+			System.out.println("params: " + params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link")) {
 				res = "Wrong params.";
@@ -301,6 +310,7 @@ public class Handlers {
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -327,6 +337,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println("Http request: addItem");
+			System.out.println("params: "+ params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link") || !params.containsKey("title")) {
 				res = "Wrong params.";
@@ -367,6 +379,7 @@ public class Handlers {
 					}
 				}
 			}
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -393,6 +406,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println("Http request: getListItem");
+			System.out.println("params: "+ params);
 			if (!params.containsKey("email") || !params.containsKey("password")) {
 				res = "Wrong params.";
 				he.sendResponseHeaders(400, res.length());
@@ -423,6 +438,7 @@ public class Handlers {
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
@@ -449,6 +465,8 @@ public class Handlers {
 			} catch (ParseException e) {
 				parseQuery(query, params);
 			}
+			System.out.println("Http request: remItem");
+			System.out.println("params: "+ params);
 			if (!params.containsKey("email") || !params.containsKey("password") 
 					|| !params.containsKey("link")) {
 				res = "Wrong params.";
@@ -480,6 +498,7 @@ public class Handlers {
 					he.sendResponseHeaders(200, res.length());
 				}
 			}
+			System.out.println("code: " + he.getResponseCode() + " body: " + res);
 			OutputStream os = he.getResponseBody();
 			os.write(res.getBytes());
 			os.close();
