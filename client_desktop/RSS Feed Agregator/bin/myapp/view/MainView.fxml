@@ -7,10 +7,10 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.view.MainViewCtrl">
    <children>
-      <SplitPane dividerPositions="0.3997995991983968" layoutX="-6.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.1843687374749499" layoutX="-6.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <ListView fx:id="feedList" prefHeight="200.0" prefWidth="200.0" />
-            <SplitPane dividerPositions="0.5">
+            <SplitPane dividerPositions="0.23076923076923078">
               <items>
                   <ListView fx:id="itemList" prefHeight="200.0" prefWidth="200.0" />
                   <WebView fx:id="webView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" />

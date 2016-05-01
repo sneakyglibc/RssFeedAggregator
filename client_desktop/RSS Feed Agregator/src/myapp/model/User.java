@@ -4,16 +4,16 @@ public class User {
 	private String	email;
 	private String	passwd;
 	
-	User() {
+	public User() {
 		this(null, null);
 	}
 	
-	User(String email, String passwd) {
+	public User(String email, String passwd) {
 		this.email = email;
 		this.passwd = passwd;
 	}
 	
 	public String getBody() {
-		return "email:" + this.email + ", password:" + this.passwd;
+		return "\"email\":\"" + this.email + "\",\"password\":\"" + this.passwd + "\"";
 	}
 }

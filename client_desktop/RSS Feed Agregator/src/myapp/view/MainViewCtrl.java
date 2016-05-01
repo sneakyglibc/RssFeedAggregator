@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javafx.util.Callback;
+import myapp.MainApp;
 import myapp.model.Channel;
 
 import com.rometools.rome.feed.synd.SyndEntry;
@@ -20,6 +20,7 @@ public class MainViewCtrl {
     @FXML
     private WebView webView;
     
+    private MainApp mainApp;
     
     public MainViewCtrl() {	
     }
@@ -62,6 +63,8 @@ public class MainViewCtrl {
             				super.updateItem(i, b);
             				if (i != null)
             					setText(i.getTitle());
+            				else
+            					setText("");
             			}
             		};
             		return cell;
@@ -71,7 +74,6 @@ public class MainViewCtrl {
     	}
         catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("ERROR: "+ex.getMessage());
         }
     }
     
@@ -89,11 +91,24 @@ public class MainViewCtrl {
     	}
     }
     
+    public Channel getSelectedFeed() {
+    	return this.feedList.getSelectionModel().getSelectedItem();
+    }
+    
+    public void removeFeed(Channel c) {
+    	this.feedList.getItems().remove(c);
+    }
+    
+    public void clearItemList() {
+    	this.itemList.getItems().clear();
+    	this.webView.getEngine().loadContent("");
+    }
+    
     public void setFeedList(ObservableList<Channel> feedList) {
     	this._setFeedList(feedList);
     }
     
-    public void setDialogStage(Stage dialogStage) {
-//        this.dialogStage = dialogStage;
+    public void setMainApp(MainApp mainApp) {
+    	this.mainApp = mainApp;
     }
 }

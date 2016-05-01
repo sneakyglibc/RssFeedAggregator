@@ -8,5 +8,20 @@
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.21.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-simple-1.7.21.jar"/>
 	<classpathentry kind="lib" path="lib/rome-utils-1.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/fluent-hc-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/httpclient-cache-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/httpclient-win-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/httpmime-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/jdom-2.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/rome-1.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/rome-utils-1.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chaume_c/Documents/RssFeedAggregator/client_desktop/RSS Feed Agregator/lib/slf4j-simple-1.7.21.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
